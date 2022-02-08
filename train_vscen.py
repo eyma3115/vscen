@@ -32,8 +32,7 @@ def train(model, n_epochs, s_optimizer, p_optimizer, s_scheduler, p_scheduler, t
         for i, (x, a, yf, ycf, mu0, mu1) in enumerate(train_loader):
             model.train()
 
-            x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(
-                device)
+            x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
 
             y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, epoch)
 
@@ -55,8 +54,7 @@ def train(model, n_epochs, s_optimizer, p_optimizer, s_scheduler, p_scheduler, t
         for i, (x, a, yf, ycf, mu0, mu1) in enumerate(val_loader):
             model.eval()
 
-            x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(
-                device)
+            x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
 
             y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, epoch)
 
@@ -69,16 +67,8 @@ def train(model, n_epochs, s_optimizer, p_optimizer, s_scheduler, p_scheduler, t
             val_a_loss.append(a_loss.item())
             val_y_loss.append(y_loss.item())
 
-            if (epoch+1) % 100 == 0:
-                print("Epoch {}/{} Done, Train Loss: {:.4f}, Validation Loss: {:.4f}".format(epoch+1, n_epochs,
-                                                                                             sum(train_loss)/len(train_loss),
-                                                                                             sum(val_loss)/len(val_loss)))
-                print("----------------Training--------------------")
-                print("Outcome loss: {:.4f}, Treatment loss: {:.4f}".format(sum(train_y_loss)/len(train_y_loss),
-                                                                                                sum(train_a_loss)/len(train_a_loss)))
-
-                print("----------------Validation--------------------")
-                print("Outcome loss: {:.4f}, Treatment loss: {:.4f}".format(sum(val_y_loss)/len(val_y_loss),
-                                                                                               sum(val_a_loss)/len(val_a_loss)))
+        print("Epoch {}/{} Done, Train Loss: {:.4f}, Validation Loss: {:.4f}".format(epoch+1, n_epochs,
+                                                                         sum(train_loss)/len(train_loss),
+                                                                         sum(val_loss)/len(val_loss)))
 
     return model
