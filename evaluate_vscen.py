@@ -1,10 +1,4 @@
 import numpy as np
-import os
-import pickle
-import pandas as pd
-import random
-import matplotlib.pyplot as plt
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -50,9 +44,9 @@ def evaluate(model, test_loader, treat_coef):
     for i, (x, a, yf, ycf, mu0, mu1) in enumerate(test_loader):
         model.eval()
 
-        x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(
-            device)
-
+        x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
+        
+        #Epoch set very high at test time to ensure minimum temperature
         y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, 10000)
 
         y_loss = outcome_loss(y_obs_hat.squeeze(), yf.squeeze())
