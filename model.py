@@ -14,7 +14,7 @@ from utils import *
 
 
 class ConcreteSelector(nn.Module):
-    def __init__(self, x_dim, var_num, n_epochs, xa_corr, start_temp=10, min_temp=0.1, corr_weight=5, start_point=0.75):
+    def __init__(self, x_dim, var_num, n_epochs, xa_corr, start_temp=10, min_temp=0.1, corr_weight=2, start_point=0.5):
         super(ConcreteSelector, self).__init__()
         self.x_dim = x_dim
         self.var_num = var_num
