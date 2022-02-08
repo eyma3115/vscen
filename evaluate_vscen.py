@@ -9,9 +9,6 @@ from utils import *
 
 def evaluate(model, test_loader, treat_coef):
 
-    def RMSE(y_hat, y):
-        return torch.sqrt(torch.mean((y_hat - y) ** 2))
-
     def PEHE(y_hat, y):
         effect = y[:, 1] - y[:, 0]
         effect_hat = y_hat[:, 1] - y_hat[:, 0]
@@ -65,8 +62,7 @@ def evaluate(model, test_loader, treat_coef):
 
         y_full_label = torch.cat((y_full_label, torch.cat((mu0, mu1), dim=1).cpu()), dim=0)
 
-        rmse = RMSE(y_fact_pred, y_fact_label)
         pehe = PEHE(y_full_pred, y_full_label)
         ate = ATE(y_full_pred, y_full_label)
 
-    return model, y_fact_label, y_cf_label, y_full_label, y_fact_pred, y_full_pred, a_label, a_pred, xc, xp, mc, mp, rmse, pehe, ate
+    return model, y_fact_label, y_cf_label, y_full_label, y_fact_pred, y_full_pred, a_label, a_pred, xc, xp, mc, mp, pehe, ate
