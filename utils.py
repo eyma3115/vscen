@@ -59,3 +59,32 @@ def FDR(feat_selected, coef):
             f += 1
 
     return f / feat_selected.shape[0]
+
+def split_data(data, train_size=0.63, val_size=0.27):
+    n, d, r = data['x'].shape
+    rand = np.sort(np.random.choice(np.arange(0, n), size=round(train_size*n), replace=False))
+    
+    train={}
+    test={}
+    val={}
+    
+    for k in data.keys():
+        if k not in ['treat_coef', 'out_coef', 'coef']:
+            train[k] = data[k][rand]
+            test[k] = np.delete(data[k], rand, axis=0)
+        else:
+            train[k] = data[k]
+            test[k] = data[k]
+
+    rand = np.sort(np.random.choice(np.arange(0,n-round(train_size*n)), size=round(val_size*n), replace=False))
+    
+    for k in data.keys():
+        if k not in ['treat_coef', 'out_coef', 'coef']:
+            val[k] = test[k][rand]
+            test[k] = np.delete(test[k], rand, axis=0)
+        else:
+            val[k] = data[k]
+    
+    
+    return train, val, test
+
