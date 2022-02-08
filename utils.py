@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable, Function
 from torch.utils.data import TensorDataset, DataLoader
 
-#GradientReversalFunction adapated from https://github.com/jvanvugt/pytorch-domain-adaptation/blob/master/utils.py
+#GradientReversal source code: van Vugt, Joris. Pytorch Adversarial Domain Adaptation. https://github.com/jvanvugt/pytorch-domain-adaptation/blob/master/utils.py
 class GradientReversalFunction(Function):
 
     def forward(ctx, x, lambda_):
