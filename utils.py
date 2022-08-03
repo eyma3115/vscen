@@ -84,7 +84,6 @@ def split_data(data, train_size=0.63, val_size=0.27):
             test[k] = np.delete(test[k], rand, axis=0)
         else:
             val[k] = data[k]
-    
-    
+   
     return train, val, test
 
