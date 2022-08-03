@@ -37,11 +37,14 @@ c = 2
 sp = 0.5
 
 train_loader = DataLoader(dataset=TensorDataset(train['x'], train['a'].unsqueeze(dim=1), train['yf'].unsqueeze(dim=1), train['ycf'].unsqueeze(dim=1), 
-                                                train['mu0'].unsqueeze(dim=1), train['mu1'].unsqueeze(dim=1)), batch_size=200, shuffle=True, drop_last=False)
+                                                train['mu0'].unsqueeze(dim=1), train['mu1'].unsqueeze(dim=1)), 
+                          batch_size=200, shuffle=True, drop_last=False)
 val_loader = DataLoader(dataset=TensorDataset(val['x'], val['a'].unsqueeze(dim=1), val['yf'].unsqueeze(dim=1), val['ycf'].unsqueeze(dim=1), 
-                                              val['mu0'].unsqueeze(dim=1), val['mu1'].unsqueeze(dim=1)), batch_size=200, shuffle=True, drop_last=False)
+                                              val['mu0'].unsqueeze(dim=1), val['mu1'].unsqueeze(dim=1)),
+                        batch_size=200, shuffle=True, drop_last=False)
 test_loader = DataLoader(dataset=TensorDataset(test['x'], test['a'].unsqueeze(dim=1), test['yf'].unsqueeze(dim=1), test['ycf'].unsqueeze(dim=1), 
-                                               test['mu0'].unsqueeze(dim=1), sim_test['mu1'].unsqueeze(dim=1)), batch_size=200, shuffle=True, drop_last=True)
+                                               test['mu0'].unsqueeze(dim=1), sim_test['mu1'].unsqueeze(dim=1)), 
+                         batch_size=200, shuffle=True, drop_last=True)
 
 xa_corr = pbcorrelation(train['x'], train['a'])
 
