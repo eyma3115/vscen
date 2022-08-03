@@ -114,10 +114,8 @@ class AntiTreatmentPredictor(nn.Module):
                                        nn.Sigmoid())
 
     def forward(self, xp, a):
-        a_hat_soft = self.treatment(xp)
-        a_hat_hard = torch.round(a_hat_soft)
-
-        return a_hat_soft, a_hat_hard
+        a_hat = self.treatment(xp)
+        return a_hat
 
 
 class CSCR(nn.Module):
@@ -134,7 +132,7 @@ class CSCR(nn.Module):
         xp, mp = self.selector_p(x, epoch)
 
         y_obs_hat, y_treat_hat, y_control_hat = self.predictor_y(xc, xp, a)
-        a_hat_s, a_hat_h = self.predictor_a(xp, a)
+        a_hat = self.predictor_a(xp, a)
 
-        return y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp
+        return y_obs_hat, y_treat_hat, y_control_hat, a_hat, xc, xp, mc, mp
 
