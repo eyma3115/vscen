@@ -28,10 +28,10 @@ def train(model, n_epochs, s_optimizer, p_optimizer, s_scheduler, p_scheduler, t
 
             x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
 
-            y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, epoch)
+            y_obs_hat, y_treat_hat, y_control_hat, a_hat, xc, xp, mc, mp = model(x, a, epoch)
 
             y_loss = outcome_loss(y_obs_hat.squeeze(), yf.squeeze())
-            a_loss = treat_loss(a_hat_s.squeeze(), a.squeeze())
+            a_loss = treat_loss(a_hat.squeeze(), a.squeeze())
 
             loss = y_loss + treat_coef * a_loss
 
@@ -50,10 +50,10 @@ def train(model, n_epochs, s_optimizer, p_optimizer, s_scheduler, p_scheduler, t
 
             x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
 
-            y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, epoch)
+            y_obs_hat, y_treat_hat, y_control_hat, a_hat, xc, xp, mc, mp = model(x, a, epoch)
 
             y_loss = outcome_loss(y_obs_hat.squeeze(), yf.squeeze())
-            a_loss = treat_loss(a_hat_s.squeeze(), a.squeeze())
+            a_loss = treat_loss(a_hat.squeeze(), a.squeeze())
 
             loss = y_loss + treat_coef * a_loss
 
