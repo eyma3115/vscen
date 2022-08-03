@@ -44,10 +44,10 @@ def evaluate(model, test_loader, treat_coef):
         x, a, yf, ycf, mu0, mu1 = x.to(device), a.to(device), yf.to(device), ycf.to(device), mu0.to(device), mu1.to(device)
         
         #Epoch set very high at test time to ensure minimum temperature
-        y_obs_hat, y_treat_hat, y_control_hat, a_hat_s, a_hat_h, xc, xp, mc, mp = model(x, a, 10000)
+        y_obs_hat, y_treat_hat, y_control_hat, a_hat, xc, xp, mc, mp = model(x, a, 10000)
 
         y_loss = outcome_loss(y_obs_hat.squeeze(), yf.squeeze())
-        a_loss = treat_loss(a_hat_s.squeeze(), a.squeeze())
+        a_loss = treat_loss(a_hat.squeeze(), a.squeeze())
 
         loss = y_loss + treat_coef * a_loss
 
@@ -58,7 +58,7 @@ def evaluate(model, test_loader, treat_coef):
         y_full_pred = torch.cat((y_full_pred, torch.cat((y_control_hat, y_treat_hat), dim=1).cpu()), dim=0)
 
         a_label = torch.cat((a_label, a.long().cpu()), dim=0)
-        a_pred = torch.cat((a_pred, a_hat_h.long().cpu()), dim=0)
+        a_pred = torch.cat((a_pred, torch.round(a_hat).long().cpu()), dim=0)
 
         y_full_label = torch.cat((y_full_label, torch.cat((mu0, mu1), dim=1).cpu()), dim=0)
 
