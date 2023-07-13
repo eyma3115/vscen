@@ -6,8 +6,6 @@ from torch.autograd import Variable, Function
 from torch.utils.data import TensorDataset, DataLoader
 from utils import *
 from model import *
-from train_vscen import *
-from evaluate_vscen import *
 
 #change index for other datasets
 with open('./data/synthetic_0-10.pkl', 'rb') as f:
